@@ -1,6 +1,5 @@
 const express = require("express");
 const { check, validationResult } = require("express-validator");
-const validator = require("express-validator");
 const router = express.Router();
 const User = require("../models/user.model");
 const { vs, vi, calculate_wqi } = require("./formula/calculate");
@@ -29,8 +28,7 @@ function postUser(req, res) {
 function postOutput(req, res) {
     const data = req.body;
     var wqi_list = [];
-    var temp;
-    // console.log(data);
+
     for (var i = 0; i < Object.keys(data).length; i++) {
         const va = {
             temp: parseFloat(data[i].temperature),
@@ -55,9 +53,9 @@ function postOutput(req, res) {
     }
     temp = wqi_list;
     wqi_list = [];
+    res.send({ data: req.body , wqi_list: temp});
     // inputData(req, res, userData);
     // res.send({ data : encodeURIComponent(JSON.stringify(req.body)) , wqi_list: wqi_list});
-    res.send({ data: req.body , wqi_list: temp});
 }
 
 function getOutput(req, res) {
@@ -71,7 +69,10 @@ router.post("/", [
         .isLength({ min: 4 }),
     check('email', 'Email is not valid')
         .isEmail()
-        .normalizeEmail()
+        .normalizeEmail(),
+    check('country', 'Country input field is empty')
+        .exists()
+        .isLength({ min: 4 }),
 ] ,postUser);
 router.post("/output", postOutput);
 router.get("/output", getOutput);

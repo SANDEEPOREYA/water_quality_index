@@ -84,8 +84,4 @@ main {
     .container {
         width: 91% !important;
     }
-
-    .row {
-        width: 100% !important;
-    }
 }
