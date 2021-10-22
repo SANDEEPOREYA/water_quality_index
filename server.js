@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'static')));
 
 app.set("views", "./views");
-app.set("view engine", "hbs");
+app.set("view engine", "ejs");
 
 app.listen(port, () => {
     console.log(`Running at http://localhost:${port}`);

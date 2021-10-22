@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const validator = require("validator");
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -8,8 +7,7 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: [true, "why no email?"],
-        validate: (value) => validator.isEmail(value)
+        required: [true, "why no email?"]
     },
     country: {
         type: String,
@@ -21,8 +19,6 @@ const userSchema = new mongoose.Schema({
     },
     latitude: Number,
     longitude: Number,
-    color: String,
-    taste: String,
     ph: Number,
     temperature: Number,
     turbidity: Number,

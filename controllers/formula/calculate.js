@@ -1,4 +1,5 @@
-/* vs => standard values
+/* 
+   vs => standard values
    vi => ideal values 
 */
 
@@ -35,6 +36,11 @@ const vi = {
 };
 
 function calculate_wqi(va, vs, vi) {
+    // wi => unit weight
+    // qi => quality rating
+    // pro_sum_qi_wi => sum(qi * wi)
+    // sum_wi => sum(wi)
+
     let wi = {};
     let qi = {};
     let del = [];
@@ -43,10 +49,11 @@ function calculate_wqi(va, vs, vi) {
     let k = 0;
     
     for (let i in va) {
-        if (va[i] == 0) {
+        if (isNaN(va[i])) {
             del.push(i);
         }
     }
+    
     del.forEach((item) => {
         delete va[item];
     });
