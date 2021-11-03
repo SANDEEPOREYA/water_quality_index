@@ -22,6 +22,33 @@ function add_param(count) {
         else if (select == 'electrical conductivity') {
             value = 447;
         }
+        else if (select == "hardness") {
+            value = 94.19;
+        }
+        else if (select == "alkalinity") {
+            value = 28.92;
+        }
+        else if (select == "dissolved oxygen") {
+            value = 9.39;
+        }
+        else if (select == "biological oxygen demand") {
+            value = 5.89;
+        }
+        else if (select == "chemical oxygen demand") {
+            value = 7.67;
+        }
+        else if (select == "ammonium") {
+            value = 0.085;
+        }
+        else if (select == "nitrate") {
+            value = 0.34;
+        }
+        else if (select == "nitrite") {
+            value = 0.007;
+        }
+        else if (select == "phosphate") {
+            value = 0.062;
+        }
         //units of parameters
         if (select == 'ph') {
             unit = '';
