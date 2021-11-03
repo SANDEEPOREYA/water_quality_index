@@ -3,13 +3,27 @@ var array = [];
 
 function add_param(count) {
     var unit;
+    var value;
     var select = document.getElementById(`select-${count}`).value;
     if (select != 'Select Parameter...' && array[count].indexOf(select) == -1) {
         var form = document.getElementById(`form-${count}`);
         var div = document.createElement("DIV");
         div.setAttribute('class', 'row mt-3');
+        //values
+        if (select == 'ph') {
+            value = 8.6;
+        }
+        else if (select == 'turbidity') {
+            value = 3.68;
+        }
+        else if (select == 'temperature') {
+            value = 11.85;
+        }
+        else if (select == 'electrical conductivity') {
+            value = 447;
+        }
         //units of parameters
-        if (select == 'latitude' || select == 'longitude' || select == 'ph') {
+        if (select == 'ph') {
             unit = '';
         }
         else if (select == 'turbidity') {
@@ -26,17 +40,17 @@ function add_param(count) {
         }
         if (select == 'ph') {
             html =  '<div class="col">\
-                    <label>'+ select.charAt(0).toLowerCase() + select.charAt(1).toUpperCase() + `${unit}` +'</label>\
-                    <input type="number" class="form-control" name="'+ select.split(' ').join('_') +'">\
-                </div>';
+                        <label>'+ select.charAt(0).toLowerCase() + select.charAt(1).toUpperCase() + `${unit}` +'</label>\
+                        <input type="number" class="form-control" name="'+ select.split(' ').join('_') +'" value="'+ value +'">\
+                    </div>';
         }
         else {
             html =  '<div class="col">\
-                    <label>'+ select.charAt(0).toUpperCase() + select.slice(1) + `${unit}` +'</label>\
-                    <input type="number" class="form-control" name="'+ select.split(' ').join('_') +'">\
-                </div>';
+                        <label>'+ select.charAt(0).toUpperCase() + select.slice(1) + `${unit}` +'</label>\
+                        <input type="number" class="form-control" name="'+ select.split(' ').join('_') +'" value="'+ value +'">\
+                    </div>';
         }
-        
+        // console.log(count);
         div.innerHTML = html;
         form.appendChild(div);
         array[count].push(select);
@@ -56,8 +70,6 @@ function add_form() {
                 <div class="container d-flex justify-content-between">\
                     <select class="form-select form-select-sm w-75" id="select-'+ counter +'" aria-label=".form-select-sm example">\
                         <option selected disabled>Select Parameter...</option>\
-                        <option value="latitude">Latitude</option>\
-                        <option value="longitude">Longitude</option>\
                         <option value="ph">pH</option>\
                         <option value="turbidity">Turbidity</option>\
                         <option value="temperature">Temperature</option>\
@@ -74,14 +86,27 @@ function add_form() {
                     </select>\
                     <button type="button" class="btn btn-primary" onclick="add_param('+ counter +')">Add Parameter</button>\
                 </div>\
-                <form id="form-'+ counter +'" method="POST" action="/output"></form>\
+                <form id="form-'+ counter +'" method="POST" action="/output">\
+                    <div class="row mt-3">\
+                        <div class="col">\
+                            <label>Latitude</label>\
+                            <input type="number" class="form-control" name="latitude" value="22.3145">\
+                        </div>\
+                    </div>\
+                    <div class="row mt-3">\
+                        <div class="col">\
+                            <label>Longitude</label>\
+                            <input type="number" class="form-control" name="longitude" value="87.3091">\
+                        </div>\
+                    </div>\
+                </form>\
             </div>';
     div.innerHTML = html;
     parent.appendChild(div);
     counter++;
 
     var btn = document.getElementById('btn');
-    btn_html = '<button type="button" class="btn btn-primary" style="margin-bottom: 3rem !important; margin-top: 1rem !important" onclick="submit()">Submit</button>';
+    btn_html = '<button type="button" id="submit" class="btn btn-primary" style="margin-bottom: 3rem !important; margin-top: 1rem !important" onclick="submit();">Submit</button>';
     btn.innerHTML = btn_html;
 }
 
@@ -89,10 +114,12 @@ function remove_form() {
     if (document.getElementById('parent').hasChildNodes()) {
         document.getElementById(`card-${counter - 1}`).remove();
         if (counter == 1) {
-            document.getElementById('btn').innerHTML = "";
+            let submit = document.getElementById("submit");
+            document.getElementById('btn').removeChild(submit);
+            window.location.reload();
         }
         counter--;
-        console.log(counter);
+        // console.log(counter);
     }
 }
 
@@ -100,10 +127,16 @@ async function submit() {
     const data = {};
     for (var i = 0; i < array.length; i++) {
         const obj = {};
-        var form = document.getElementById(`form-${i}`);
+        let form = document.getElementById(`form-${i}`);
+        console.log(typeof(form));
         form.querySelectorAll("input").forEach(input => {
             obj[`${input.name}`] = input.value;
+            console.log(input.value);
         });
+        let url = `https://nominatim.openstreetmap.org/reverse?format=geojson&lat=${obj.latitude}&lon=${obj.longitude}`;
+        let reverse_geocoding = await (await fetch(url)).json();
+        obj["address"] = reverse_geocoding.features[0].properties.display_name;
+        
         data[`${i}`] = obj;
     }
 

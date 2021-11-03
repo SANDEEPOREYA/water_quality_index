@@ -84,4 +84,8 @@ main {
     .container {
         width: 91% !important;
     }
+
+    .table {
+        padding: 0.5rem -0.5rem !important;
+    }
 }

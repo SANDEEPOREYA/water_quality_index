@@ -38,21 +38,31 @@
                 <div class="row w-100 text-center mt-3 text-white bg-dark">
                     <h3 class="wqi_header">WQI with location</h3>
                 </div>
-                <table class="table text-center">
+                <table class="table text-lg-center table-striped table-bordered table-responsive">
                     <thead>
                         <tr class="t-h">
+                            <th scope="col">Sl no.</th>
+                            <th scope="col">Address</th>
                             <th scope="col">Latitude</th>
                             <th scope="col">Longitude</th>
                             <th scope="col">WQI</th>
+                            <th scope="col">Class</th>
                         </tr>
                     </thead>
                     <tbody id="tbody"></tbody>
                 </table>
-
+            </div>
+            <div class="container d-flex flex-column">
+                <div class="row w-100 text-center mt-3 text-white bg-dark align-self-center">
+                    <h3 class="wqi_header">Location on map</h3>
+                </div>
+                <div id="siteMap" style="height: 33rem;"></div>
+            </div>
+            <div class="container d-flex flex-column align-items-center">
                 <div class="row w-100 text-center mt-3 text-white bg-dark">
                     <h3 class="wqi_header">WQI Classification</h3>
                 </div>
-                <table class="table text-center">
+                <table class="table text-center text-wrap">
                     <thead>
                         <tr class="t-h">
                             <th scope="col">WQI</th>
@@ -89,12 +99,6 @@
                     </tbody>
                 </table>
             </div>
-            <div class="container d-flex flex-column">
-                <div class="row w-100 text-center mt-3 text-white bg-dark align-self-center">
-                    <h3 class="wqi_header">Location on map</h3>
-                </div>
-                <div id="siteMap" style="height: 33rem;"></div>
-            </div>
         </main>
         <footer class="page-footer font-small blue fixed-bottom bg-dark">
             <div class="footer-copyright text-center py-3 text-light">
@@ -107,16 +111,41 @@
 
         <script>
             var json = JSON.parse(localStorage.getItem('json'));
-            console.log(json.wqi_list);
+            // console.log(json.wqi_list);
             var tbody = document.getElementById("tbody");
+            var bg_color = 'bg-white';
             for (var i = 0; i < json.wqi_list.length; i++) {
-                html = '<tr class="bg-light">\
+                if (json.wqi_list[i] >= 0 && json.wqi_list[i] <= 25) {
+                    var wqi_class = 'Excellent';
+                    bg_color = 't-1';
+                }
+                else if (json.wqi_list[i] > 25 && json.wqi_list[i] <= 50) {
+                    var wqi_class = 'Good';
+                    bg_color = 't-2';
+                }
+                else if (json.wqi_list[i] > 50 && json.wqi_list[i] <= 75) {
+                    var wqi_class = 'Poor';
+                    bg_color = 't-3';
+                }
+                else if (json.wqi_list[i] > 75 && json.wqi_list[i] <= 100) {
+                    var wqi_class = 'Very Poor';
+                    bg_color = 't-4';
+                }
+                else if (json.wqi_list[i] > 100) {
+                    var wqi_class = 'Unsuitable for drinking';
+                    bg_color = 't-5';
+                }
+                html = '<tr class='+ bg_color +'>\
+                            <td>'+ (i + 1) +'</td>\
+                            <td>'+ json.data[i].address +'</td>\
                             <td>'+ json.data[i].latitude +'</td>\
                             <td>'+ json.data[i].longitude +'</td>\
                             <td>'+ json.wqi_list[i] +'</td>\
+                            <td>'+ wqi_class +'</td>\
                         </tr>';
                 tbody.innerHTML += html;
             }
+            //map
             var map = L.map('siteMap').setView([json.data[0].latitude, json.data[0].longitude], 5);
             var redIcon = L.icon({
                 iconUrl: '/img/red_dot.png',
