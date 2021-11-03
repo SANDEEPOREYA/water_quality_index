@@ -117,13 +117,13 @@ function add_form() {
                     <div class="row mt-3">\
                         <div class="col">\
                             <label>Latitude</label>\
-                            <input type="number" class="form-control" name="latitude" value="22.3145">\
+                            <input type="number" class="form-control" name="latitude" value="24.3243">\
                         </div>\
                     </div>\
                     <div class="row mt-3">\
                         <div class="col">\
                             <label>Longitude</label>\
-                            <input type="number" class="form-control" name="longitude" value="87.3091">\
+                            <input type="number" class="form-control" name="longitude" value="85.5216">\
                         </div>\
                     </div>\
                 </form>\
