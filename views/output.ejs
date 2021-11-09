@@ -33,10 +33,16 @@
             </div>
         </nav>
         <main>
-            <div class="container d-flex flex-column align-items-center mt-3">
-                <div class="container border text-center">
-                    <h3 class="fw-bold p-2">Water Quality Status</h3>
+            <div class="container border text-center">
+                <h3 class="fw-bold p-2">Water Quality Status</h3>
+            </div>
+            <div class="container d-flex flex-column">
+                <div class="row w-100 text-center mt-3 text-white bg-primary align-self-center">
+                    <h3 class="wqi_header">Location on map</h3>
                 </div>
+                <div id="siteMap" style="height: 33rem;"></div>
+            </div>
+            <div class="container d-flex flex-column align-items-center mt-3">
                 <div class="row w-100 text-center mt-3 text-white bg-primary">
                     <h3 class="wqi_header">WQI with location</h3>
                 </div>
@@ -54,12 +60,7 @@
                     <tbody id="tbody"></tbody>
                 </table>
             </div>
-            <div class="container d-flex flex-column">
-                <div class="row w-100 text-center mt-3 text-white bg-primary align-self-center">
-                    <h3 class="wqi_header">Location on map</h3>
-                </div>
-                <div id="siteMap" style="height: 33rem;"></div>
-            </div>
+            
             <div class="container d-flex flex-column align-items-center">
                 <div class="row w-100 text-center mt-3 text-white bg-primary">
                     <h3 class="wqi_header">WQI Classification</h3>
