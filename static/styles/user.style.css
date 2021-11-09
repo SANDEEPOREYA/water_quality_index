@@ -16,6 +16,18 @@
     margin-right: -10rem !important;
 }
 
+.page-footer {
+    background-color: var(--bs-cyan) !important;
+}
+
+.navbar {
+    background-color: var(--bs-cyan) !important;
+}
+
+/* .btn {
+    background-color: var(--bs-cyan) !important;
+} */
+
 @media only screen and (max-width: 414px) {
     .col-1, .col-4 {
         display: none !important;

@@ -12,6 +12,14 @@
     max-height: 100vh;
 }
 
+.navbar {
+    background-color: var(--bs-cyan) !important;
+}
+
+.page-footer {
+    background-color: var(--bs-cyan) !important;
+}
+
 input::placeholder {
     color: rgb(184, 184, 184) !important;
 }

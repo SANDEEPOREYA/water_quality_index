@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
-    <title>Water Quality Index</title>
-    <link rel = "icon" href = "/img/logo.svg" type = "image/x-icon">
+    <title>Water Quality Assessment | Input</title>
+    <link rel = "icon" href = "/img/logo.png" type = "image/x-icon">
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="/styles/inputs.style.css">
 </head>
 <body>
-    <nav class="navbar bg-dark py-0">
-        <div class="container w-100 justify-content-md-center">
+    <nav class="navbar py-0">
+        <div class="container w-100 justify-content-md-center py-2">
             <div class="row w-100">
                 <div class="col-lg-8 col-md-5 col-xs-12 text-lg-start text-md-start text-center">
-                    <a href="#"><img src="/img/logo.svg" alt="Water Quality Index" width="85" height="85"></a>
+                    <a href="#"><img src="/img/logo.png" alt="Water Quality Index" height="75"></a>
                 </div>
                 <div class="col-lg-1 col-md-2 d-none d-sm-block">
                     <img src="/img/iit-logo.png" alt="IITKGP-logo" width="70" height="70">
@@ -29,7 +29,10 @@
             </div>
         </div>
     </nav>
-    <main class="mb-3">
+    <main class="my-3">
+        <div class="container mb-1 text-center">
+            <h3 class="fw-bold">Enter Water Quality Data</h3>
+        </div>
         <div class="container d-flex justify-content-between">
             <button type="button" class="btn btn-primary mt-3" onclick="add_form()">Add Form</button>
             <button type="button" class="btn btn-danger mt-3" onclick="remove_form()">Remove Form</button>
@@ -37,7 +40,7 @@
         <div class="container mt-3 overflow-auto" id="parent"></div>
         <div class="container" id="btn"></div>
     </main>
-    <footer class="page-footer font-small fixed-bottom bg-dark">
+    <footer class="page-footer font-small fixed-bottom">
         <div class="footer-copyright text-center py-3 text-light">
             © 2021 Copyright : Water Quality Index
         </div>

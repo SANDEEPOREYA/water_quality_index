@@ -4,9 +4,8 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
-        <title>Water Quality Index</title>
-        
-        <link rel = "icon" href = "/img/logo.svg" type = "image/x-icon">
+        <title>Water Quality Assessment | Output</title>
+        <link rel = "icon" href = "/img/logo.png" type = "image/x-icon">
         <link rel="stylesheet" href="/styles/output.style.css">
         <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -14,11 +13,11 @@
         crossorigin=""/>
     </head>
     <body>
-        <nav class="navbar navbar-light bg-dark py-0">
-            <div class="container">
+        <nav class="navbar navbar-light py-0">
+            <div class="container py-2">
                 <div class="row align-items-center mx-auto w-100 d-flex justify-content-lg-between">
                     <div class="col-7 px-0">
-                        <a href="#"><img src="/img/logo.svg" alt="Water Quality Index" width="85" height="85"></a>
+                        <a href="#"><img src="/img/logo.png" alt="Water Quality Index" height="75"></a>
                     </div>
                     <div class="col-1 px-0 mt-n1 d-lg-flex">
                         <img src="/img/iit-logo.png" alt="IITKGP-logo" width="70" height="70">
@@ -35,7 +34,7 @@
         </nav>
         <main>
             <div class="container d-flex flex-column align-items-center mt-3">
-                <div class="row w-100 text-center mt-3 text-white bg-dark">
+                <div class="row w-100 text-center mt-3 text-white bg-primary">
                     <h3 class="wqi_header">WQI with location</h3>
                 </div>
                 <table class="table text-lg-center table-striped table-bordered table-responsive-sm table-1">
@@ -53,13 +52,13 @@
                 </table>
             </div>
             <div class="container d-flex flex-column">
-                <div class="row w-100 text-center mt-3 text-white bg-dark align-self-center">
+                <div class="row w-100 text-center mt-3 text-white bg-primary align-self-center">
                     <h3 class="wqi_header">Location on map</h3>
                 </div>
                 <div id="siteMap" style="height: 33rem;"></div>
             </div>
             <div class="container d-flex flex-column align-items-center">
-                <div class="row w-100 text-center mt-3 text-white bg-dark">
+                <div class="row w-100 text-center mt-3 text-white bg-primary">
                     <h3 class="wqi_header">WQI Classification</h3>
                 </div>
                 <table class="table text-center text-wrap">
@@ -100,7 +99,7 @@
                 </table>
             </div>
         </main>
-        <footer class="page-footer font-small blue fixed-bottom bg-dark">
+        <footer class="page-footer font-small blue fixed-bottom ">
             <div class="footer-copyright text-center py-3 text-light">
                 © 2021 Copyright : Water Quality Index
             </div>
