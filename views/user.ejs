@@ -4,12 +4,13 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
-        <title>Water Quality Assessment | User</title>
+        <title>Water Quality Assessment</title>
         <link rel = "icon" href = "/img/logo.png" type = "image/x-icon">
         <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
         <link rel="stylesheet" href="/styles/user.style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
     </head>
-    <body>
+    <body class="bg-image">
         <nav class="navbar navbar-light py-0">
             <div class="container d-flex align-items-center justify-content-between px-xs-1 py-2">
                 <div class="col-xs-7 px-xs-0 w-auto">
@@ -31,45 +32,45 @@
         </nav>
         <main>
             <div class="container my-4 w-75">
-                <div class="container mb-3 text-center border">
-                    <h3 class="fw-bold p-2" id="info">User Information</h3>
+                <div class="container text-center">
+                    <h3 class="fw-bold" id="info">User Information</h3>
                 </div>
                 <div class="row" id="row">
-                    <% if (typeof alert != 'undefined') { %>
-                        <% alert.forEach(function(error) { %>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <%= error.msg %>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    <form action="/" method="POST" autocomplete="off" class="d-flex flex-column align-items-center w-100" name="myform" id="form">
+                            <div class="form-group-xs">
+                                <label for="inputsm" class="fs-5">Name</label>
+                                <input type="text" onkeypress="return event.keyCode != 13;" step="0.1" class="form-control form-control-md name" name="name" id="inputmd" placeholder="John doe">
+                                <small>Your name is not long enough</small>
+                            </div>
+                            <div class="form-group-xs">
+                                <label for="inputsm" class="fs-5">Email</label>
+                                <input type="text" onkeypress="return event.keyCode != 13;" step="0.1" class="form-control form-control-md email" name="email" id="inputmd" placeholder="johndoe@gmail.com">
+                                <small>Your email is invalid</small>
+                            </div>
+                            <div class="form-group-xs">
+                                <label for="inputsm" class="fs-5">Country</label>
+                                <select name="country" id="select">
+                                    <option selected disabled>Select Country...</option>
+                                </select>
+                                <small>Please select your country</small>
+                            </div>
+                            <div class="form-group-xs d-flex justify-content-between align-items-center">
+                                <label for="inputsm" class="fs-5">Phone</label>
+                                <input type="text" onkeypress="return event.keyCode != 13;" step="0.1" class="form-control form-control-md" name="phone" id="inputmd" placeholder="Optional">
+                            </div>
+                            <div>
+                                <button type="button" onclick="return validate(this.form)" class="btn bg-primary text-white">
+                                    Next
+                                    <i class="fas fa-arrow-right"></i>
                                 </button>
                             </div>
-                        <% }) %>
-                    <% } %>
-
-                    <form action="/" method="POST" autocomplete="off">
-                        <div class="form-group-xs mb-3">
-                            <label for="inputsm" class="fs-5">Name</label>
-                            <input type="text" onkeypress="return event.keyCode != 13;" step="0.1" class="form-control form-control-md" name="name" id="inputmd" placeholder="Required">
-                        </div>
-                        <div class="form-group-xs mb-3">
-                            <label for="inputsm" class="fs-5">Email Address</label>
-                            <input type="text" onkeypress="return event.keyCode != 13;" step="0.1" class="form-control form-control-md" name="email" id="inputmd" placeholder="Required">
-                        </div>
-                        <div class="form-group-xs mb-3">
-                            <label for="inputsm" class="fs-5">Country</label>
-                            <input type="text" onkeypress="return event.keyCode != 13;" step="0.1" class="form-control form-control-md" name="country" id="inputmd" placeholder="Required">
-                        </div>
-                        <div class="form-group-xs mb-3">
-                            <label for="inputsm" class="fs-5">Phone Number</label>
-                            <input type="text" onkeypress="return event.keyCode != 13;" step="0.1" class="form-control form-control-md" name="phone" id="inputmd" placeholder="Optional">
-                        </div>
-                        <button type="submit" id="submit" class="btn bg-primary text-white">Next</button>
                     </form>
                 </div>
             </div>
         </main>
         <footer class="page-footer bg-primary font-small blue fixed-bottom">
             <div class="footer-copyright text-center py-3 text-light">
-                © 2021 Copyright : Water Quality Index
+                © 2021 Copyright : Water Quality Assessment
             </div>
         </footer>
 

@@ -8,8 +8,9 @@
     <link rel = "icon" href = "/img/logo.png" type = "image/x-icon">
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="/styles/inputs.style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
 </head>
-<body>
+<body class="bg-image">
     <nav class="navbar navbar-light py-0">
         <div class="container d-flex align-items-center justify-content-between px-xs-1 py-2">
             <div class="col-xs-7 px-xs-0 w-auto">
@@ -30,19 +31,31 @@
         </div>
     </nav>
     <main class="my-3">
-        <div class="container mb-1 text-center border">
+        <div class="container mb-1 text-center">
             <h3 class="fw-bold p-2">Enter Water Quality Data</h3>
         </div>
-        <div class="container d-flex justify-content-between">
-            <button type="button" class="btn btn-primary mt-3" onclick="add_form()">Add Form</button>
-            <button type="button" class="btn btn-danger mt-3" onclick="remove_form()">Remove Form</button>
+        <div class="d-flex flex-column justify-content-between btns">
+            <span class="fw-bold fs-4 mb-3">Location</span>
+            <div class="d-flex justify-content-between">
+                <button type="button" class="bg-primary back" onclick="back()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <button type="button" class="bg-success add" onclick="add_form()">
+                    Add More
+                    <i class="fas fa-plus"></i>
+                </button>
+                <button type="button" class="bg-danger remove" onclick="remove_form()">
+                    Remove
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
         </div>
         <div class="container mt-3 overflow-auto" id="parent"></div>
         <div class="container" id="btn"></div>
     </main>
     <footer class="page-footer font-small fixed-bottom">
         <div class="footer-copyright text-center py-3 text-light">
-            © 2021 Copyright : Water Quality Index
+            © 2021 Copyright : Water Quality Assessment
         </div>
     </footer>
     <script src="/bootstrap/js/bootstrap.js"></script>

@@ -1,4 +1,5 @@
 const express = require("express");
+const countries = require("../static/json/countries.json");
 const { check, validationResult } = require("express-validator");
 const router = express.Router();
 const User = require("../models/user.model");
@@ -11,18 +12,20 @@ function getUser(req, res) {
 
 function postUser(req, res) {
     userData = req.body;
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        const alert = errors.array();
+    // const errors = validationResult(req);
+    // if (!errors.isEmpty()) {
+    //     const alert = errors.array();
 
-        res.render("user", {
-            alert
-        });
-    }
-    else {
-        res.render("input");
-        // console.log(req.body);
-    }
+    //     res.render("user", {
+    //         alert
+    //     });
+    // }
+    // else {
+    //     res.render("input");
+    //     console.log(req.body);
+    // }
+    res.render("input");
+    console.log(req.body);
 }
 
 function postOutput(req, res) {

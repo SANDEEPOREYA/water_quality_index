@@ -12,7 +12,7 @@
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
         crossorigin=""/>
     </head>
-    <body>
+    <body class="bg-image">
         <nav class="navbar navbar-light py-0">
             <div class="container d-flex align-items-center justify-content-between px-xs-1 py-2">
                 <div class="col-xs-7 px-xs-0 w-auto">
@@ -33,28 +33,34 @@
             </div>
         </nav>
         <main>
-            <div class="container border text-center">
-                <h3 class="fw-bold p-2">Water Quality Status</h3>
+            <div class="container text-center">
+                <h3 class="fw-bold pt-2">Water Quality Status</h3>
             </div>
             <div class="container d-flex flex-column">
                 <div class="row w-100 text-center mt-3 text-white bg-primary align-self-center">
-                    <h3 class="wqi_header">Location on map</h3>
+                    <h3 class="wqi_header">Sample Location</h3>
                 </div>
                 <div id="siteMap" style="height: 33rem;"></div>
             </div>
             <div class="container d-flex flex-column align-items-center mt-3">
                 <div class="row w-100 text-center mt-3 text-white bg-primary">
-                    <h3 class="wqi_header">WQI with location</h3>
+                    <h3 class="wqi_header">Location-wise Water Quality Index(WQI)</h3>
                 </div>
                 <table class="table text-lg-center table-striped table-bordered table-responsive-sm table-1">
                     <thead>
+                        <tr class="location">
+                            <th colspan="1" scope="col-group"></th>
+                            <th colspan="3" scope="col-group" class="text-center">Location</th>
+                            <th colspan="1" scope="col-group"></th>
+                            <th colspan="1" scope="col-group"></th>
+                        </tr>
                         <tr class="t-h">
                             <th scope="col">Sl no.</th>
-                            <th scope="col">Address</th>
+                            <th scope="col">Name</th>
                             <th scope="col">Latitude</th>
                             <th scope="col">Longitude</th>
                             <th scope="col">WQI</th>
-                            <th scope="col">Class</th>
+                            <th scope="col">Water Quality</th>
                         </tr>
                     </thead>
                     <tbody id="tbody"></tbody>
@@ -65,7 +71,7 @@
                 <div class="row w-100 text-center mt-3 text-white bg-primary">
                     <h3 class="wqi_header">WQI Classification</h3>
                 </div>
-                <table class="table text-center text-wrap">
+                <table class="table text-center text-wrap table-2">
                     <thead>
                         <tr class="t-h">
                             <th scope="col">WQI</th>
@@ -105,7 +111,7 @@
         </main>
         <footer class="page-footer font-small blue fixed-bottom ">
             <div class="footer-copyright text-center py-3 text-light">
-                © 2021 Copyright : Water Quality Index
+                © 2021 Copyright : Water Quality Assessment
             </div>
         </footer>
 
@@ -174,6 +180,23 @@
             const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
             const tiles = L.tileLayer(tileUrl, { attribution });
             tiles.addTo(map);
+            var legend = L.control({
+                position: "bottomleft"
+            });
+
+            legend.onAdd = function(map) {
+                var div = L.DomUtil.create("div", "legend");
+                div.innerHTML += '<h4>Water Quality</h4>';
+                div.innerHTML += '<i style="background: var(--bs-green)"></i><span>Excellent</span><br>';
+                div.innerHTML += '<i style="background: #16c172"></i><span>Good</span><br>';
+                div.innerHTML += '<i style="background: var(--bs-yellow)"></i><span>Poor</span><br>';
+                div.innerHTML += '<i style="background: var(--bs-orange)"></i><span>Very Poor</span><br>';
+                div.innerHTML += '<i style="background: var(--bs-danger)"></i><span>Unsuitable for drinking</span><br>';
+                return div;
+            }
+
+            legend.addTo(map);
+
             for (var i = 0; i < json.wqi_list.length; i++) {
                 if (json.wqi_list[i] >= 0 && json.wqi_list[i] <= 25) {
                     L.marker([json.data[i].latitude, json.data[i].longitude], {icon: darkGreenIcon}).addTo(map);

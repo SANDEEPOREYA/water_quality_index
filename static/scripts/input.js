@@ -90,29 +90,9 @@ function add_form() {
     var div = document.createElement("DIV");
     div.setAttribute('class', 'card mb-3');
     div.setAttribute('id', `card-${counter}`)
-    html =  '<div class="card-header">\
-                <h5>Input Parameter Form - '+ (counter + 1) +'</h5>\
+    html =  '<div class="card-header h-50">\
             </div>\
             <div class="card-body">\
-                <div class="container d-flex justify-content-between">\
-                    <select class="form-select form-select-sm w-75" id="select-'+ counter +'" aria-label=".form-select-sm example">\
-                        <option selected disabled>Select Parameter...</option>\
-                        <option value="ph">pH</option>\
-                        <option value="turbidity">Turbidity</option>\
-                        <option value="temperature">Temperature</option>\
-                        <option value="electrical conductivity">Electrical Conductivity</option>\
-                        <option value="hardness">Hardness</option>\
-                        <option value="alkalinity">Alkalinity</option>\
-                        <option value="dissolved oxygen">Dissolved Oxygen</option>\
-                        <option value="biological oxygen demand">Biological Oxygen Demand</option>\
-                        <option value="chemical oxygen demand">Chemical Oxygen Demand</option>\
-                        <option value="ammonium">Ammonium</option>\
-                        <option value="nitrate">Nitrate</option>\
-                        <option value="nitrite">Nitrite</option>\
-                        <option value="phosphate">Phosphate</option>\
-                    </select>\
-                    <button type="button" class="btn btn-primary" onclick="add_param('+ counter +')">Add Parameter</button>\
-                </div>\
                 <form id="form-'+ counter +'" method="POST" action="/output">\
                     <div class="row mt-3">\
                         <div class="col">\
@@ -125,6 +105,25 @@ function add_form() {
                             <label>Longitude</label>\
                             <input type="number" class="form-control" name="longitude" value="85.5216">\
                         </div>\
+                    </div>\
+                    <div class="d-flex justify-content-between mt-3">\
+                        <select class="form-select form-select-sm w-75" id="select-'+ counter +'" aria-label=".form-select-sm example">\
+                            <option selected disabled>Select Parameter...</option>\
+                            <option value="ph">pH</option>\
+                            <option value="turbidity">Turbidity</option>\
+                            <option value="temperature">Temperature</option>\
+                            <option value="electrical conductivity">Electrical Conductivity</option>\
+                            <option value="hardness">Hardness</option>\
+                            <option value="alkalinity">Alkalinity</option>\
+                            <option value="dissolved oxygen">Dissolved Oxygen</option>\
+                            <option value="biological oxygen demand">Biological Oxygen Demand</option>\
+                            <option value="chemical oxygen demand">Chemical Oxygen Demand</option>\
+                            <option value="ammonium">Ammonium</option>\
+                            <option value="nitrate">Nitrate</option>\
+                            <option value="nitrite">Nitrite</option>\
+                            <option value="phosphate">Phosphate</option>\
+                        </select>\
+                        <button type="button" class="btn btn-primary" onclick="add_param('+ counter +')">Add Parameter</button>\
                     </div>\
                 </form>\
             </div>';
@@ -148,6 +147,10 @@ function remove_form() {
         counter--;
         // console.log(counter);
     }
+}
+
+function back() {
+    window.history.back();
 }
 
 async function submit() {
