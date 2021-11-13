@@ -71,6 +71,10 @@ body {
     margin: 0 8px 0 0;
 }
 
+.table-2 {
+    margin-bottom: 50px !important;
+}
+
 @media only screen and (max-width: 428px) {
     .navbar > .container > .col-xs-7 {
         margin-left: -35px !important;
@@ -110,7 +114,7 @@ body {
 
     .table-1 {
         padding: 0.5rem -0.5rem !important;
-        margin-left: 148px !important;
+        margin-left: 145px !important;
     }
 
     .table-2 {

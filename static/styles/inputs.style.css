@@ -50,13 +50,12 @@ input::placeholder {
 
 .btns > div {
     width: 285px !important;
-    /* background-color: red !important; */
 }
 
 .add {
     height: 40px;
     width: 120px;
-    border: 1px solid #fff;
+    border: 1px solid transparent;
     border-radius: 4px;
     color: #fff;
     font-size: 17px;
@@ -65,7 +64,7 @@ input::placeholder {
 .remove {
     height: 40px;
     width: 120px;
-    border: 1px solid #fff;
+    border: 1px solid transparent;
     border-radius: 4px;
     color: #fff;
     font-size: 17px;
@@ -74,10 +73,14 @@ input::placeholder {
 .back {
     height: 40px;
     width: 40px;
-    border: 1px solid #fff;
+    border: 1px solid transparent;
     border-radius: 4px;
     color: #fff;
     font-size: 17px;
+}
+
+#btn {
+    margin-bottom: 40px;
 }
 
 @media only screen and (max-width: 428px) {

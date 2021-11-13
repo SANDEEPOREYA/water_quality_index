@@ -150,7 +150,7 @@ function remove_form() {
 }
 
 function back() {
-    window.history.back();
+    window.history.go(-1);
 }
 
 async function submit() {
