@@ -81,6 +81,7 @@ input::placeholder {
 
 #btn {
     margin-bottom: 60px;
+    margin-left: 117px;
 }
 
 @media only screen and (max-width: 428px) {
@@ -123,12 +124,17 @@ input::placeholder {
     }
     #btn {
         margin-bottom: 40px;
+        margin-left: 12px;
     }
 }
 
 @media only screen and (min-width: 429px) and (max-width: 810px) {
     .btns {
         margin-left: 60px;
+    }
+    #btn {
+        margin-bottom: 60px;
+        margin-left: 58px;
     }
 }
 @media only screen and (min-width: 768px) and (max-width: 768px) {
