@@ -112,6 +112,15 @@ input::placeholder {
     .btns {
         margin-left: 15px;
     }
+    .parameter {
+        height: 50px;
+    }
+    .parameter > button {
+        font-size: 12px;
+    }
+    #btn {
+        margin-bottom: 40px;
+    }
 }
 
 @media only screen and (min-width: 429px) and (max-width: 810px) {

@@ -106,7 +106,7 @@ function add_form() {
                             <input type="number" class="form-control" name="longitude" value="85.5216">\
                         </div>\
                     </div>\
-                    <div class="d-flex justify-content-between mt-3">\
+                    <div class="d-flex justify-content-between mt-3 parameter">\
                         <select class="form-select form-select-sm w-75" id="select-'+ counter +'" aria-label=".form-select-sm example">\
                             <option selected disabled>Select Parameter...</option>\
                             <option value="ph">pH</option>\
