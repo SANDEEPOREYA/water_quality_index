@@ -4,50 +4,77 @@ var array = [];
 function add_param(count) {
     var unit;
     var value;
+    var attrib;
     var select = document.getElementById(`select-${count}`).value;
     if (select != 'Select Parameter...' && array[count].indexOf(select) == -1) {
-        var form = document.getElementById(`form-${count}`);
+        var parent = document.getElementById(`form-${count}`);
         var div = document.createElement("DIV");
-        div.setAttribute('class', 'row mt-3');
+        div.setAttribute('class', "row mt-3");
         //values
         if (select == 'ph') {
             value = 8.6;
+            div.setAttribute('id', "acid");
+            attrib = "acid";
         }
         else if (select == 'turbidity') {
             value = 3.68;
+            div.setAttribute('id', "turb");
+            attrib = 'turb';
         }
         else if (select == 'temperature') {
             value = 11.85;
+            div.setAttribute('id', "temp");
+            attrib = 'temp';
         }
-        else if (select == 'electrical conductivity') {
+        else if (select == 'electrical_conductivity') {
             value = 447;
+            div.setAttribute('id', "ec");
+            attrib = 'ec';
         }
         else if (select == "hardness") {
             value = 94.19;
+            div.setAttribute('id', "hard");
+            attrib = 'hard';
         }
         else if (select == "alkalinity") {
             value = 28.92;
+            div.setAttribute('id', "base");
+            attrib = 'base';
         }
-        else if (select == "dissolved oxygen") {
+        else if (select == "dissolved_oxygen") {
             value = 9.39;
+            div.setAttribute('id', "o2");
+            attrib = 'o2';
         }
-        else if (select == "biological oxygen demand") {
+        else if (select == "biological_oxygen_demand") {
             value = 5.89;
+            div.setAttribute('id', "bod");
+            attrib = 'bod';
         }
-        else if (select == "chemical oxygen demand") {
+        else if (select == "chemical_oxygen_demand") {
             value = 7.67;
+            div.setAttribute('id', "cod");
+            attrib = 'cod';
         }
         else if (select == "ammonium") {
             value = 0.085;
+            div.setAttribute('id', "nh4");
+            attrib = 'nh4';
         }
         else if (select == "nitrate") {
             value = 0.34;
+            div.setAttribute('id', "no3");
+            attrib = 'no3';
         }
         else if (select == "nitrite") {
             value = 0.007;
+            div.setAttribute('id', "no2");
+            attrib = 'no2';
         }
         else if (select == "phosphate") {
             value = 0.062;
+            div.setAttribute('id', "po4");
+            attrib = 'po4';
         }
         //units of parameters
         if (select == 'ph') {
@@ -59,33 +86,65 @@ function add_param(count) {
         else if (select == 'temperature') {
             unit = ' (in &deg;C)';
         }
-        else if (select == 'electrical conductivity') {
+        else if (select == 'electrical_conductivity') {
             unit = ' (in S/m)';
         }
         else {
             unit = ' (in mg/l)';
         }
+
         if (select == 'ph') {
-            html =  '<div class="col">\
+            html =  '<div class="d-flex flex-column">\
                         <label>'+ select.charAt(0).toLowerCase() + select.charAt(1).toUpperCase() + `${unit}` +'</label>\
-                        <input type="number" class="form-control" name="'+ select.split(' ').join('_') +'" value="'+ value +'">\
+                        <div class="d-flex">\
+                            <input type="number" class="form-control" name="'+ select.split(' ').join('_') +'" value="'+ value +'">\
+                            <button type="button" class="btn btn-danger" onclick="remove_parameter('+ attrib +', '+ count +', '+ select +')">\
+                                <i class="fas fa-times"></i>\
+                            </button>\
+                        </div>\
                     </div>';
         }
         else {
-            html =  '<div class="col">\
-                        <label>'+ select.charAt(0).toUpperCase() + select.slice(1) + `${unit}` +'</label>\
-                        <input type="number" class="form-control" name="'+ select.split(' ').join('_') +'" value="'+ value +'">\
+            var str = select.replace(/_/g, ' ');
+            html =  '<div class="d-flex flex-column">\
+                        <label>'+ str.charAt(0).toUpperCase() + str.slice(1) + `${unit}` +'</label>\
+                        <div class="d-flex">\
+                            <input type="number" class="form-control" name="'+ select.split(' ').join('_') +'" value="'+ value +'">\
+                            <button type="button" class="btn btn-danger" onclick="remove_parameter('+ attrib +', '+ count +', '+ select +')">\
+                                <i class="fas fa-times"></i>\
+                            </button>\
+                        </div>\
                     </div>';
         }
         // console.log(count);
         div.innerHTML = html;
-        form.appendChild(div);
+        if (array[count].length == 0) {
+            parent.appendChild(div);
+        }
+        else {
+            const existingNode = document.getElementById(`parameter-${count}`);
+            parent.insertBefore(div, existingNode.nextSibling);
+            console.log(existingNode);
+        }
         array[count].push(select);
     }
+    document.getElementById(`select-${count}`).value = 'Select Parameter...';
 }
+
+function remove_parameter(el, count, select) {
+    el.remove();
+    const result = array[count].filter(deleteSelect);
+    function deleteSelect(temp) {
+        return temp != select.name;
+    }
+    array[count] = result;
+}
+
+
 
 function add_form() {
     array[counter] = [];
+
     var parent = document.getElementById('parent');
     var div = document.createElement("DIV");
     div.setAttribute('class', 'card mb-3');
@@ -106,18 +165,18 @@ function add_form() {
                             <input type="number" class="form-control" name="longitude" value="85.5216">\
                         </div>\
                     </div>\
-                    <div class="d-flex justify-content-between mt-3 parameter">\
+                    <div class="d-flex justify-content-between mt-3" id=parameter-'+ counter +'>\
                         <select class="form-select form-select-sm w-75" id="select-'+ counter +'" aria-label=".form-select-sm example">\
-                            <option selected disabled>Select Parameter...</option>\
+                            <option selected disabled value="Select Parameter...">Select Parameter...</option>\
                             <option value="ph">pH</option>\
                             <option value="turbidity">Turbidity</option>\
                             <option value="temperature">Temperature</option>\
-                            <option value="electrical conductivity">Electrical Conductivity</option>\
+                            <option value="electrical_conductivity">Electrical Conductivity</option>\
                             <option value="hardness">Hardness</option>\
                             <option value="alkalinity">Alkalinity</option>\
-                            <option value="dissolved oxygen">Dissolved Oxygen</option>\
-                            <option value="biological oxygen demand">Biological Oxygen Demand</option>\
-                            <option value="chemical oxygen demand">Chemical Oxygen Demand</option>\
+                            <option value="dissolved_oxygen">Dissolved Oxygen</option>\
+                            <option value="biological_oxygen_demand">Biological Oxygen Demand</option>\
+                            <option value="chemical_oxygen_demand">Chemical Oxygen Demand</option>\
                             <option value="ammonium">Ammonium</option>\
                             <option value="nitrate">Nitrate</option>\
                             <option value="nitrite">Nitrite</option>\
@@ -128,11 +187,11 @@ function add_form() {
                 </form>\
             </div>';
     div.innerHTML = html;
-    parent.appendChild(div);
+    parent.prepend(div);
     counter++;
 
     var btn = document.getElementById('btn');
-    btn_html = '<button type="button" id="submit" class="btn btn-primary" style="margin-bottom: 3rem !important; margin-top: 1rem !important" onclick="submit();">Submit</button>';
+    btn_html = '<button type="button" id="submit" class="btn btn-primary" style="margin-bottom: 3rem !important; margin-top: 1rem !important" onclick="submit();">Go</button>';
     btn.innerHTML = btn_html;
 }
 

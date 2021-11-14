@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
-    <title>Water Quality Assessment | Input</title>
+    <title>Water Quality Assessment</title>
     <link rel = "icon" href = "/img/logo.png" type = "image/x-icon">
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="/styles/inputs.style.css">
@@ -32,21 +32,19 @@
     </nav>
     <main class="my-3">
         <div class="container mb-1 text-center">
-            <h3 class="fw-bold p-2">Enter Water Quality Data</h3>
+            <h3 class="fw-bold p-2 text-white">Enter Water Quality Data</h3>
         </div>
         <div class="d-flex flex-column justify-content-between btns">
-            <span class="fw-bold fs-4 mb-3">Location</span>
+            <button type="button" class="bg-primary back" onclick="back()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
             <div class="d-flex justify-content-between">
-                <button type="button" class="bg-primary back" onclick="back()">
-                    <i class="fas fa-arrow-left"></i>
-                </button>
+                <span class="fw-bold fs-4 mb-3 text-white">Location</span>
                 <button type="button" class="bg-success add" onclick="add_form()">
-                    Add More
                     <i class="fas fa-plus"></i>
                 </button>
                 <button type="button" class="bg-danger remove" onclick="remove_form()">
-                    Remove
-                    <i class="fas fa-trash"></i>
+                    <i class="fas fa-times"></i>
                 </button>
             </div>
         </div>

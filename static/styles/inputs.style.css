@@ -49,12 +49,13 @@ input::placeholder {
 }
 
 .btns > div {
-    width: 285px !important;
+    width: 186px !important;
+    height: 40px !important;
 }
 
 .add {
     height: 40px;
-    width: 120px;
+    width: 40px;
     border: 1px solid transparent;
     border-radius: 4px;
     color: #fff;
@@ -63,7 +64,7 @@ input::placeholder {
 
 .remove {
     height: 40px;
-    width: 120px;
+    width: 40px;
     border: 1px solid transparent;
     border-radius: 4px;
     color: #fff;
@@ -77,6 +78,7 @@ input::placeholder {
     border-radius: 4px;
     color: #fff;
     font-size: 17px;
+    margin-bottom: 10px;
 }
 
 #btn {
