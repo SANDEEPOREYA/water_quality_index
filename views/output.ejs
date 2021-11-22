@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
         crossorigin=""/>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <body class="bg-image">
         <nav class="navbar navbar-light py-0">
@@ -32,7 +33,7 @@
                 </div>
             </div>
         </nav>
-        <main>
+        <main class="overflow-auto">
             <div class="container text-center">
                 <h3 class="fw-bold pt-2 text-white">Water Quality Status</h3>
             </div>
@@ -108,6 +109,12 @@
                     </tbody>
                 </table>
             </div>
+            <div class="container d-flex flex-column align-items-center" style="height: 1000px; width: 1000px;">
+                <div class="row w-100 text-center mt-3 text-white bg-primary">
+                    <h3 class="wqi_header">Bar Graph of Location and Water Quality Index(wqi)</h3>
+                </div>
+                <Canvas id="barChart" style="background-color: white;"></Canvas>
+            </div>
         </main>
         <footer class="page-footer font-small blue fixed-bottom ">
             <div class="footer-copyright text-center py-3 text-light">
@@ -120,29 +127,47 @@
 
         <script>
             var json = JSON.parse(localStorage.getItem('json'));
-            // console.log(json.wqi_list);
+            var barLabel = [];
+            var barData = [];
+            var barbgColor = [];
+            var barborderColor = [];
+
             var tbody = document.getElementById("tbody");
             var bg_color = 'bg-white';
             for (var i = 0; i < json.wqi_list.length; i++) {
+
+                barLabel.push(json.data[i].address);
+                barData.push(json.wqi_list[i]);
+
                 if (json.wqi_list[i] >= 0 && json.wqi_list[i] <= 25) {
                     var wqi_class = 'Excellent';
                     bg_color = 't-1';
+                    barbgColor.push("rgba(25, 135, 84, 0.8)");
+                    barborderColor.push("rgb(0, 0, 0)");
                 }
                 else if (json.wqi_list[i] > 25 && json.wqi_list[i] <= 50) {
                     var wqi_class = 'Good';
                     bg_color = 't-2';
+                    barbgColor.push("rgba(22, 193, 114, 0.8)");
+                    barborderColor.push("rgb(0, 0, 0)");
                 }
                 else if (json.wqi_list[i] > 50 && json.wqi_list[i] <= 75) {
                     var wqi_class = 'Poor';
                     bg_color = 't-3';
+                    barbgColor.push("rgba(255, 193, 7, 0.8)");
+                    barborderColor.push("rgb(0, 0, 0)");
                 }
                 else if (json.wqi_list[i] > 75 && json.wqi_list[i] <= 100) {
                     var wqi_class = 'Very Poor';
                     bg_color = 't-4';
+                    barbgColor.push("rgba(253, 126, 20, 0.8)");
+                    barborderColor.push("rgb(0, 0, 0)");
                 }
                 else if (json.wqi_list[i] > 100) {
                     var wqi_class = 'Unsuitable for drinking';
                     bg_color = 't-5';
+                    barbgColor.push("rgba(220, 53, 69, 0.8)");
+                    barborderColor.push("rgb(0, 0, 0)");
                 }
                 html = '<tr class='+ bg_color +'>\
                             <td>'+ (i + 1) +'</td>\
@@ -214,6 +239,25 @@
                     L.marker([json.data[i].latitude, json.data[i].longitude], {icon: redIcon}).addTo(map);
                 }
             }
+
+            //Bar Chart
+            var canvas = document.getElementById("barChart");
+            var config = {
+                type: "bar",
+                data: {
+                        labels: barLabel, 
+                        datasets: [{
+                            label: 'Water Quality Index', 
+                            data: barData,
+                            backgroundColor: barbgColor,
+                            borderColor: barborderColor,
+                            border: 1
+                        }
+                    ],
+                },
+            }
+
+            var barChart = new Chart(canvas, config)
 
             window.localStorage.clear();
         </script>

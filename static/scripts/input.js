@@ -197,13 +197,13 @@ function add_form() {
 
 function remove_form() {
     if (document.getElementById('parent').hasChildNodes()) {
-        document.getElementById(`card-${counter - 1}`).remove();
-        if (counter == 1) {
+        counter--;
+        document.getElementById(`card-${counter}`).remove();
+        if (counter == 0) {
             let submit = document.getElementById("submit");
             document.getElementById('btn').removeChild(submit);
             window.location.reload();
         }
-        counter--;
         // console.log(counter);
     }
 }
@@ -217,7 +217,7 @@ async function submit() {
     for (var i = 0; i < array.length; i++) {
         const obj = {};
         let form = document.getElementById(`form-${i}`);
-        console.log(typeof(form));
+        console.log(form.querySelectorAll("input"));
         form.querySelectorAll("input").forEach(input => {
             obj[`${input.name}`] = input.value;
             console.log(input.value);
