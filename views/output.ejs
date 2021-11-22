@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
-        <title>Water Quality Assessment | Output</title>
+        <title>Water Quality Assessment</title>
         <link rel = "icon" href = "/img/logo.png" type = "image/x-icon">
         <link rel="stylesheet" href="/styles/output.style.css">
         <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
@@ -109,11 +109,28 @@
                     </tbody>
                 </table>
             </div>
-            <div class="container d-flex flex-column align-items-center" style="height: 1000px; width: 1000px;">
+            <div class="container d-flex flex-column align-items-center chart" style="height: 650px;">
                 <div class="row w-100 text-center mt-3 text-white bg-primary">
                     <h3 class="wqi_header">Bar Graph of Location and Water Quality Index(wqi)</h3>
                 </div>
                 <Canvas id="barChart" style="background-color: white;"></Canvas>
+            </div>
+            <div class="container d-flex flex-column align-items-center" style="height: 650px;">
+                <div class="row w-100 text-center mt-3 text-white bg-primary">
+                    <h3 class="wqi_header">Health Risk Assessment(Nitrate and Flouride)</h3>
+                </div>
+                <table class="table text-center text-wrap bg-light">
+                    <thead>
+                        <tr class="t-h">
+                            <th scope="col">Sl No.</th>
+                            <th scope="col">Location Name</th>
+                            <th scope="col">Human</th>
+                            <th scope="col">Hazard Index(HI)</th>
+                            <th scope="col">Health Risk</th>
+                        </tr>
+                    </thead>
+                    <tbody id="hazard"></tbody>
+                </table>
             </div>
         </main>
         <footer class="page-footer font-small blue fixed-bottom ">
@@ -178,6 +195,52 @@
                             <td>'+ wqi_class +'</td>\
                         </tr>';
                 tbody.innerHTML += html;
+            }
+            var hazard_tbody = document.getElementById("hazard");
+            var bg_color_child, bg_color_male, bg_color_female;
+            for (var i = 0; i < json.hazard.length; i++) {
+
+                if (json.hazard[i].male < 1) {
+                    health_risk_male = "No Risk";
+                    bg_color_male = "t-1";
+                } else {
+                    health_risk_male = "High Risk";
+                    bg_color_male = "t-5";
+                }
+
+                if (json.hazard[i].female < 1) {
+                    health_risk_female = "No Risk";
+                    bg_color_female = "t-1";
+                } else {
+                    health_risk_female = "High Risk";
+                    bg_color_female = "t-1";
+                }
+
+                if (json.hazard[i].child < 1) {
+                    health_risk_child = "No Risk";
+                    bg_color_child = 't-1';
+                } else {
+                    health_risk_child = "High Risk";
+                    bg_color_child = 't-5';
+                }
+                html = '<tr class='+ bg_color_male +'>\
+                            <td rowspan="3">'+ (i + 1) +'</td>\
+                            <td rowspan="3">'+ json.data[i].address +'</td>\
+                            <td>Males</td>\
+                            <td>'+ json.hazard[i].male +'</td>\
+                            <td>'+ health_risk_male +'</td>\
+                        </tr>\
+                        <tr class='+ bg_color_female +'>\
+                            <td>Females</td>\
+                            <td>'+ json.hazard[i].female +'</td>\
+                            <td>'+ health_risk_female +'</td>\
+                        </tr>\
+                        <tr class='+ bg_color_child +'>\
+                            <td>Children</td>\
+                            <td>'+ json.hazard[i].child +'</td>\
+                            <td>'+ health_risk_child +'</td>\
+                        </tr>';
+                hazard_tbody.innerHTML += html;
             }
             //map
             var map = L.map('siteMap').setView([json.data[0].latitude, json.data[0].longitude], 5);
@@ -251,7 +314,8 @@
                             data: barData,
                             backgroundColor: barbgColor,
                             borderColor: barborderColor,
-                            border: 1
+                            border: 1,
+                            maxBarThickness: 14
                         }
                     ],
                 },

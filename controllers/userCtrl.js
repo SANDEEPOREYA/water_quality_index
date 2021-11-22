@@ -3,7 +3,8 @@ const countries = require("../static/json/countries.json");
 const { check, validationResult } = require("express-validator");
 const router = express.Router();
 const User = require("../models/user.model");
-const { vs, vi, calculate_wqi } = require("./formula/calculate");
+const calculate_wqi = require("./wqi_formula");
+const calculateHazardIndex = require("./hazardIndex_formula");
 let userData, wqi;
 
 function getUser(req, res) {
@@ -31,6 +32,7 @@ function postUser(req, res) {
 function postOutput(req, res) {
     const data = req.body;
     var wqi_list = [];
+    var hazard_index_list = [];
 
     for (var i = 0; i < Object.keys(data).length; i++) {
         const va = {
@@ -46,17 +48,28 @@ function postOutput(req, res) {
             nh4: parseFloat(data[i].ammonium),
             no3: parseFloat(data[i].nitrate),
             no2: parseFloat(data[i].nitrite),
-            po4: parseFloat(data[i].phosphate)
+            po4: parseFloat(data[i].phosphate),
+            f: parseFloat(data[i].flouride)
         };
-        wqi = calculate_wqi(va, vs, vi);
+        wqi = calculate_wqi(va);
         wqi = wqi.toFixed(4);
         // console.log(req.body[i].latitude, req.body[i].longitude);
         // console.log(wqi);
         wqi_list.push(wqi);
     }
+
+    for (var i = 0; i < Object.keys(data).length; i++) {
+        const param =  {
+            no3: parseFloat(data[i].nitrate),
+            f: parseFloat(data[i].flouride)
+        };
+        let hazard_index = calculateHazardIndex(param);
+        hazard_index_list.push(hazard_index);
+    }
+
     temp = wqi_list;
     wqi_list = [];
-    res.send({ data: req.body , wqi_list: temp});
+    res.send({ data: req.body, wqi_list: temp, hazard: hazard_index_list });
     // inputData(req, res, userData);
     // res.send({ data : encodeURIComponent(JSON.stringify(req.body)) , wqi_list: wqi_list});
 }

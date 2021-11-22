@@ -16,7 +16,8 @@ const vs = {
     nh4: 0.2,
     no3: 5,
     no2: 1,
-    po4: 0.65
+    po4: 0.65,
+    f: 1
 };
 
 const vi = {
@@ -32,10 +33,11 @@ const vi = {
     nh4: 0,
     no3: 0,
     no2: 0,
-    po4: 0
+    po4: 0,
+    f: 0
 };
 
-function calculate_wqi(va, vs, vi) {
+function calculate_wqi(va) {
     // wi => unit weight
     // qi => quality rating
     // pro_sum_qi_wi => sum(qi * wi)
@@ -81,4 +83,4 @@ function calculate_wqi(va, vs, vi) {
     return (pro_sum_qi_wi/sum_wi);
 }
 
-module.exports = { vs, vi, calculate_wqi };
+module.exports = calculate_wqi;

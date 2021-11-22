@@ -1,1 +1,1 @@
-console.log(barbgColor);
+console.log(json.hazard);

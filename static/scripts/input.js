@@ -76,6 +76,11 @@ function add_param(count) {
             div.setAttribute('id', "po4");
             attrib = 'po4';
         }
+        else if (select == "flouride") {
+            value = 0.1;
+            div.setAttribute('id', "f");
+            attrib = 'f';
+        }
         //units of parameters
         if (select == 'ph') {
             unit = '';
@@ -181,6 +186,7 @@ function add_form() {
                             <option value="nitrate">Nitrate</option>\
                             <option value="nitrite">Nitrite</option>\
                             <option value="phosphate">Phosphate</option>\
+                            <option value="flouride">Flouride</option>\
                         </select>\
                         <button type="button" class="btn btn-primary" onclick="add_param('+ counter +')">Add Parameter</button>\
                     </div>\
@@ -217,16 +223,17 @@ async function submit() {
     for (var i = 0; i < array.length; i++) {
         const obj = {};
         let form = document.getElementById(`form-${i}`);
-        console.log(form.querySelectorAll("input"));
+        // console.log(form.querySelectorAll("input"));
         form.querySelectorAll("input").forEach(input => {
             obj[`${input.name}`] = input.value;
-            console.log(input.value);
+            // console.log(input.value);
         });
         let url = `https://nominatim.openstreetmap.org/reverse?format=geojson&lat=${obj.latitude}&lon=${obj.longitude}`;
         let reverse_geocoding = await (await fetch(url)).json();
         obj["address"] = reverse_geocoding.features[0].properties.display_name;
         
         data[`${i}`] = obj;
+        console.log(data);
     }
 
     const options = {
